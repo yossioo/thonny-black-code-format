@@ -41,11 +41,11 @@ class BlackFormat:
                 else:
                     self.editor._load_file(self.filename, keep_undo=True)
                     final_title = "Success!"
-                    final_message = "Code formatted succesfully"
+                    final_message = "Code formatted succesfully."
 
         else:
-            final_title = "Error!"
-            final_message = "Looks like this is not a python file"
+            final_title = "File not compatible!"
+            final_message = "Looks like this is not a python file. Did you already save it?"
 
         showinfo(title=final_title, message=final_message)
 
@@ -53,7 +53,7 @@ class BlackFormat:
         self.workbench.add_command(
             command_id="format_black",
             menu_name="tools",
-            command_label="Format Black",
+            command_label="Format with Black",
             handler=self.format_black,
             default_sequence="<Control-Alt-c>",
             extra_sequences=["<<CtrlAltCInText>>"],
