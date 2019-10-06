@@ -23,7 +23,7 @@ class BlackFormat:
             except FileNotFoundError:
                 final_title = "Error!"
                 final_message = (
-                    "Could not find black package. Is it installed and on your PATH?"
+                    "Could not find Black package. Is it installed and on your PATH?"
                 )
             else:
                 if format_code.returncode != 0:
@@ -45,7 +45,7 @@ class BlackFormat:
 
         else:
             final_title = "Error!"
-            final_message = "Looks like your file is not a python file"
+            final_message = "Looks like this is not a python file"
 
         showinfo(title=final_title, message=final_message)
 
