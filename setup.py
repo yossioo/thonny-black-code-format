@@ -7,7 +7,7 @@ setuptools.setup(
     name="thonny-black-format",
     version="0.0.1",
     author="Franccisco",
-    description="A plugin to format your python code with Black.",
+    description="A plugin to format your python code with Black in Thonny IDE.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Franccisco/thonny-black-code-format",
