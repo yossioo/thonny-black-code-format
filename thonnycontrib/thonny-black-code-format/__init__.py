@@ -41,7 +41,7 @@ class BlackFormat:
                 else:
                     self.editor._load_file(self.filename, keep_undo=True)
                     final_title = "Success!"
-                    final_message = "Code Formated succesfully"
+                    final_message = "Code formatted succesfully"
 
         else:
             final_title = "Error!"
