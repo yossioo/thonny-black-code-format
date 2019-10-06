@@ -15,7 +15,7 @@ There are two ways to run the plugin:
 1. Go to `Tools -> Format Black`
 1. Press `Ctrl+Alt+c`
 
-All changes will be automatically saved. If you don't like it, you can undo.
+All changes will be automatically saved. If you prefer, you can undo them.
 
 ### Contributing
 Contributions are welcome! Feel free to sumbit an issue and/or a pull request.
