@@ -14,7 +14,7 @@ class BlackFormat:
     def format_black(self):
         self.editor = self.workbench.get_editor_notebook().get_current_editor()
         self.filename = self.editor.get_filename()
-        if self.filename is not None and self.filename[-3:] == ".py":
+        if self.filename[-3:] == ".py":
             self.editor.save_file()
             try:
                 format_code = subprocess.run(
@@ -45,7 +45,9 @@ class BlackFormat:
 
         else:
             final_title = "File not compatible!"
-            final_message = "Looks like this is not a python file. Did you already save it?"
+            final_message = (
+                "Looks like this is not a python file. Did you already save it?"
+            )
 
         showinfo(title=final_title, message=final_message)
 
