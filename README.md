@@ -10,7 +10,7 @@
 1. This can be easily installed via Thonny. Go to `Tools -> Manage plug-ins...`, type `thonny-black-format` and click on `Find package from PyPI`. Install the plugin and restart Thonny.
 1. Alternatively, you can install via pip with `pip install --user thonny-black-format`
 
-### Use
+### Usage
 There are two ways to run the plugin:
 1. Go to `Tools -> Format with Black`
 1. Press `Ctrl+Alt+c`
