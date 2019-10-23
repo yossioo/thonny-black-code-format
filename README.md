@@ -5,7 +5,7 @@
 [![PYPI license](https://img.shields.io/pypi/l/thonny-black-format.svg)](https://pypi.org/project/thonny-black-format/)
 ## Automatically format your python code with Black!
 
-### Install
+### Installation
 
 1. This can be easily installed via Thonny. Go to `Tools -> Manage plug-ins...`, type `thonny-black-format` and click on `Find package from PyPI`. Install the plugin and restart Thonny.
 1. Alternatively, you can install via pip with `pip install --user thonny-black-format`
