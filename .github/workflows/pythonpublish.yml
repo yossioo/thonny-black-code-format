@@ -3,14 +3,11 @@ name: Upload Python Package
 on:
   push:
     branches:
-      - master
+      - github-actions
 
 jobs:
   deploy:
-    runs-on:
-    - ubuntu-latest
-    - windows-latest
-    - macOS-latest
+    runs-on: [ubuntu-latest, windows-latest, macos-latest]
     steps:
     - uses: actions/checkout@v1
     - name: Set up Python
