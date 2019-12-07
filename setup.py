@@ -13,10 +13,10 @@ setuptools.setup(
     url="https://github.com/Franccisco/thonny-black-code-format",
     packages=["thonnycontrib.thonny-black-format"],
     classifiers=[
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     install_requires=["thonny >= 3.0.0", "black"],
-    python_requires=">=3.6",
+    python_requires=">=3.7",
 )
