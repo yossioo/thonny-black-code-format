@@ -33,44 +33,49 @@ class BlackFormat:
 
     def format_black(self):
         self.editor = self.workbench.get_editor_notebook().get_current_editor()
-        self.filename = self.editor.get_filename()
-        if self.filename[-3:] == ".py":
-            self.editor.save_file()
-            try:
-                format_code = subprocess.run(
-                    [
-                        get_interpreter_for_subprocess(),
-                        "-m",
-                        "black",
-                        self.filename,
-                    ],
-                    capture_output=True,
-                    text=True,
-                )
-            except FileNotFoundError:
-                final_title = "Error!"
-                final_message = "Could not find Black package. Is it installed and on your PATH?"
-            else:
-                if format_code.returncode != 0:
-                    final_title = "Error!"
-                    try:
-                        error_found = format_code.stderr.split("error:")[
-                            1
-                        ].split("\n")[0]
-                    except IndexError:
-                        error_found = format_code.stderr.split("Error:")[
-                            1
-                        ].split("\n")[0]
-
-                    final_message = error_found
-                else:
-                    self.editor._load_file(self.filename, keep_undo=True)
-                    final_title = "Success!"
-                    final_message = "Code formatted succesfully."
-
+        try:
+            self.filename = self.editor.get_filename()
+        except AttributeError:
+            final_title = "Error!"
+            final_message = "There is no text to format."
         else:
-            final_title = "File not compatible!"
-            final_message = "Looks like this is not a python file. Did you already save it?"
+            if self.filename is not None and self.filename[-3:] == ".py":
+                self.editor.save_file()
+                try:
+                    format_code = subprocess.run(
+                        [
+                            get_interpreter_for_subprocess(),
+                            "-m",
+                            "black",
+                            self.filename,
+                        ],
+                        capture_output=True,
+                        text=True,
+                    )
+                except FileNotFoundError:
+                    final_title = "Error!"
+                    final_message = "Could not find Black package. Is it installed and on your PATH?"
+                else:
+                    if format_code.returncode != 0:
+                        final_title = "Error!"
+                        try:
+                            error_found = format_code.stderr.split("error:")[
+                                1
+                            ].split("\n")[0]
+                        except IndexError:
+                            error_found = format_code.stderr.split("Error:")[
+                                1
+                            ].split("\n")[0]
+
+                        final_message = error_found
+                    else:
+                        self.editor._load_file(self.filename, keep_undo=True)
+                        final_title = "Success!"
+                        final_message = "Code formatted succesfully."
+
+            else:
+                final_title = "File not compatible!"
+                final_message = "Looks like this is not a python file. Did you already save it?"
 
         showinfo(title=final_title, message=final_message)
 
