@@ -1,8 +1,28 @@
 from thonny import get_workbench
 from tkinter.messagebox import showinfo
 import subprocess
+import sys
+import os
 
 name = "thonny-black-format"
+
+# Temporary fix: this function comes from thonny.running, but importing that
+# module may conflict with outdated Thonny installations from some Linux
+# repositories.
+# TODO: change this with thonny.running.get_interpreter_for_subprocess when
+# possible and change Thonny version required.
+_console_allocated = False
+
+
+def get_interpreter_for_subprocess(candidate=None):
+    if candidate is None:
+        candidate = sys.executable
+
+    pythonw = candidate.replace("python.exe", "pythonw.exe")
+    if not _console_allocated and os.path.exists(pythonw):
+        return pythonw
+    else:
+        return candidate.replace("pythonw.exe", "python.exe")
 
 
 class BlackFormat:
@@ -18,24 +38,29 @@ class BlackFormat:
             self.editor.save_file()
             try:
                 format_code = subprocess.run(
-                    ["black", self.filename], capture_output=True, text=True
+                    [
+                        get_interpreter_for_subprocess(),
+                        "-m",
+                        "black",
+                        self.filename,
+                    ],
+                    capture_output=True,
+                    text=True,
                 )
             except FileNotFoundError:
                 final_title = "Error!"
-                final_message = (
-                    "Could not find Black package. Is it installed and on your PATH?"
-                )
+                final_message = "Could not find Black package. Is it installed and on your PATH?"
             else:
                 if format_code.returncode != 0:
                     final_title = "Error!"
                     try:
-                        error_found = format_code.stderr.split("error:")[1].split("\n")[
-                            0
-                        ]
+                        error_found = format_code.stderr.split("error:")[
+                            1
+                        ].split("\n")[0]
                     except IndexError:
-                        error_found = format_code.stderr.split("Error:")[1].split("\n")[
-                            0
-                        ]
+                        error_found = format_code.stderr.split("Error:")[
+                            1
+                        ].split("\n")[0]
 
                     final_message = error_found
                 else:
@@ -45,9 +70,7 @@ class BlackFormat:
 
         else:
             final_title = "File not compatible!"
-            final_message = (
-                "Looks like this is not a python file. Did you already save it?"
-            )
+            final_message = "Looks like this is not a python file. Did you already save it?"
 
         showinfo(title=final_title, message=final_message)
 
