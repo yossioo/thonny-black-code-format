@@ -56,22 +56,29 @@ class BlackFormat:
                     final_title = "Error!"
                     final_message = "Could not find Black package. Is it installed and on your PATH?"
                 else:
-                    if format_code.returncode != 0:
-                        final_title = "Error!"
-                        try:
-                            error_found = format_code.stderr.split("error:")[
-                                1
-                            ].split("\n")[0]
-                        except IndexError:
-                            error_found = format_code.stderr.split("Error:")[
-                                1
-                            ].split("\n")[0]
+                    message_without_emojis = format_code.stderr.encode(
+                        "ascii", "ignore"
+                    ).decode()
 
-                        final_message = error_found
+                    if format_code.returncode != 0:
+                        final_title = message_without_emojis.splitlines()[1]
+
+                        final_message = (
+                            message_without_emojis.splitlines()[0][
+                                :1
+                            ].capitalize()
+                            + message_without_emojis.splitlines()[0][1:]
+                        )
                     else:
                         self.editor._load_file(self.filename, keep_undo=True)
-                        final_title = "Success!"
-                        final_message = "Code formatted succesfully."
+
+                        final_title = message_without_emojis.splitlines()[0]
+                        final_message = (
+                            message_without_emojis.splitlines()[1][
+                                :1
+                            ].capitalize()
+                            + message_without_emojis.splitlines()[1][1:]
+                        )
 
             else:
                 final_title = "File not compatible!"
