@@ -59,26 +59,17 @@ class BlackFormat:
                     message_without_emojis = format_code.stderr.encode(
                         "ascii", "ignore"
                     ).decode()
-
                     if format_code.returncode != 0:
-                        final_title = message_without_emojis.splitlines()[1]
 
-                        final_message = (
-                            message_without_emojis.splitlines()[0][
-                                :1
-                            ].capitalize()
-                            + message_without_emojis.splitlines()[0][1:]
-                        )
+                        final_title = message_without_emojis.splitlines()[1]
+                        final_message = "\n".join(
+                            message_without_emojis.splitlines()[::2]
+                        ).capitalize()
                     else:
                         self.editor._load_file(self.filename, keep_undo=True)
 
-                        final_title = message_without_emojis.splitlines()[0]
-                        final_message = (
-                            message_without_emojis.splitlines()[1][
-                                :1
-                            ].capitalize()
-                            + message_without_emojis.splitlines()[1][1:]
-                        )
+                        final_title = "All done!"
+                        final_message = message_without_emojis.splitlines()[-1]
 
             else:
                 final_title = "File not compatible!"
