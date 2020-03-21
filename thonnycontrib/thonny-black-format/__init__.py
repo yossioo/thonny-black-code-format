@@ -106,7 +106,9 @@ class BlackFormat:
 
             else:
                 final_title = "File not compatible!"
-                final_message = "Looks like this is not a python file. Did you already save it?"
+                final_message = (
+                    "Looks like this is not a python file. Did you already save it?"
+                )
 
         showinfo(title=final_title, message=final_message)
 
