@@ -38,7 +38,6 @@ class BlackFormat:
     def __init__(self) -> None:
         """Get the workbench to be later used to detect the file to format."""
         self.workbench = get_workbench()
-        self.load_plugin()
 
     def format_black(self) -> None:
         """Handle the plugin execution."""
@@ -128,4 +127,4 @@ class BlackFormat:
         )
 
 
-run = BlackFormat()
+run = BlackFormat().load_plugin()
