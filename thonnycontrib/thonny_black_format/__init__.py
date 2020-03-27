@@ -52,18 +52,13 @@ class BlackFormat:
             if self.filename is not None and self.filename[-3:] == ".py":
                 self.editor.save_file()
 
-                try:
-                    format_code = subprocess.run(
-                        [
-                            get_interpreter_for_subprocess(),
-                            "-m",
-                            "black",
-                            self.filename,
-                        ],
-                        capture_output=True,
-                        text=True,
-                    )
-                except FileNotFoundError:
+                format_code = subprocess.run(
+                    [get_interpreter_for_subprocess(), "-m", "black", self.filename,],
+                    capture_output=True,
+                    text=True,
+                )
+
+                if format_code.stderr.find("No module named black") != -1:
                     final_title = "Error!"
                     final_message = "Could not find Black package. Is it installed and on your PATH?"
                 else:
