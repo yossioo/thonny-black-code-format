@@ -6,6 +6,19 @@ import os
 
 name = "thonny-black-format"
 
+ERROR = "Error!"
+SUCCESS = "All done!"
+
+NO_TEXT_TO_FORMAT = (ERROR, "There is no text to format.")
+PACKAGE_NOT_FOUND = (
+    ERROR,
+    "Could not find Black package. Is it installed and on your PATH?",
+)
+NOT_COMPATIBLE = (
+    "File not compatible!",
+    "Looks like this is not a python file. Did you already save it?",
+)
+
 # Temporary fix: this function comes from thonny.running, but importing that
 # module may conflict with outdated Thonny installations from some Linux
 # repositories.
@@ -46,8 +59,8 @@ class BlackFormat:
         try:
             self.filename = self.editor.get_filename()
         except AttributeError:
-            final_title = "Error!"
-            final_message = "There is no text to format."
+            final_title = NO_TEXT_TO_FORMAT[0]
+            final_message = NO_TEXT_TO_FORMAT[1]
         else:
             if self.filename is not None and self.filename[-3:] == ".py":
                 self.editor.save_file()
@@ -59,8 +72,8 @@ class BlackFormat:
                 )
 
                 if format_code.stderr.find("No module named black") != -1:
-                    final_title = "Error!"
-                    final_message = "Could not find Black package. Is it installed and on your PATH?"
+                    final_title = PACKAGE_NOT_FOUND[0]
+                    final_message = PACKAGE_NOT_FOUND[1]
                 else:
                     # Emojis are not supported in Tkinter.
                     message_without_emojis = format_code.stderr.encode(
@@ -74,10 +87,13 @@ class BlackFormat:
                             3. 1 file failed to reformat.
                         """
 
-                        final_title = message_without_emojis.splitlines()[1]
+                        final_title = message_without_emojis.splitlines()[1].rstrip()
                         final_message = "\n".join(
                             message_without_emojis.splitlines()[::2]
-                        ).capitalize()
+                        )
+
+                        final_message = final_message[0].upper() + final_message[1:]
+
                     else:
                         self.editor._load_file(self.filename, keep_undo=True)
 
@@ -98,10 +114,8 @@ class BlackFormat:
                         final_message = message_without_emojis.splitlines()[-1]
 
             else:
-                final_title = "File not compatible!"
-                final_message = (
-                    "Looks like this is not a python file. Did you already save it?"
-                )
+                final_title = NOT_COMPATIBLE[0]
+                final_message = NOT_COMPATIBLE[1]
 
         showinfo(title=final_title, message=final_message)
 
