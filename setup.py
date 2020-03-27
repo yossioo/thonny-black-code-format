@@ -11,7 +11,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Franccisco/thonny-black-code-format",
-    packages=["thonnycontrib.thonny-black-format"],
+    packages=["thonnycontrib.thonny_black_format"],
     classifiers=[
         "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: MIT License",
