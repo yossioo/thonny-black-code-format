@@ -35,10 +35,9 @@ class BlackFormat:
     tkinter.messagebox.showinfo().
     """
 
-    workbench = get_workbench()
-
     def __init__(self) -> None:
-        """Prepare the plugin when Thonny is opened."""
+        """Get the workbench to be later used to detect the file to format."""
+        self.workbench = get_workbench()
         self.load_plugin()
 
     def format_black(self) -> None:
