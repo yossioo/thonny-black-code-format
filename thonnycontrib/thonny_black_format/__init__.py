@@ -122,4 +122,5 @@ class BlackFormat:
         )
 
 
-run = BlackFormat().load_plugin()
+if get_workbench() is not None:
+    run = BlackFormat().load_plugin()
