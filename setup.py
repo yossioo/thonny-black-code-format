@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="thonny-black-format",
-    version="0.0.2",
+    version="0.0.3",
     author="Franccisco",
     description="A plugin to format your python code with Black in Thonny IDE.",
     long_description=long_description,
