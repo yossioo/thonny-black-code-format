@@ -87,7 +87,7 @@ class BlackFormat:
                             3. 1 file failed to reformat.
                         """
 
-                        final_title = message_without_emojis.splitlines()[1].rstrip()
+                        final_title = "Oh no!"
                         final_message = "\n".join(
                             message_without_emojis.splitlines()[::2]
                         )

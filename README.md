@@ -3,6 +3,10 @@
 [![PyPI version](https://img.shields.io/pypi/v/thonny-black-format.svg)](https://pypi.org/project/thonny-black-format/)
 [![PyPI py versions](https://img.shields.io/pypi/pyversions/thonny-black-format.svg)](https://pypi.org/project/thonny-black-format/)
 [![PYPI license](https://img.shields.io/pypi/l/thonny-black-format.svg)](https://pypi.org/project/thonny-black-format/)
+![Continuous Integration - Ubuntu](https://github.com/Franccisco/thonny-black-code-format/workflows/Continuous%20Integration%20-%20Ubuntu/badge.svg)
+![Continuous Integration - OSX](https://github.com/Franccisco/thonny-black-code-format/workflows/Continuous%20Integration%20-%20OSX/badge.svg)
+![Continuous Integration - Windows](https://github.com/Franccisco/thonny-black-code-format/workflows/Continuous%20Integration%20-%20Windows/badge.svg)
+
 ## Automatically format your python code with Black!
 
 ### Installation

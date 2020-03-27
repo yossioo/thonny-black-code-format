@@ -1,0 +1,49 @@
+name: Continuous Integration - Ubuntu
+
+on: [push, pull_request]
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.x
+
+    - name: Install Dependencies
+      run: |
+        source ci/ci_with_ubuntu.sh
+        linter_dependencies
+
+    - name: Linter
+      run: |
+        source ci/ci_with_ubuntu.sh
+        lint
+
+    - name: Black format
+      run: |
+        source ci/ci_with_ubuntu.sh
+        black_format
+
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.x
+
+    - name: Install Dependencies
+      run: |
+        source ci/ci_with_ubuntu.sh
+        tests_dependencies
+
+    - name: Tests
+      run: |
+        source ci/ci_with_ubuntu.sh
+        tests
