@@ -1,8 +1,9 @@
-from thonny import get_workbench
-from tkinter.messagebox import showinfo
 import subprocess
 import sys
 import os
+
+from tkinter.messagebox import showinfo
+from thonny import get_workbench
 
 name = "thonny-black-format"
 
