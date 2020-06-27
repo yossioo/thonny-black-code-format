@@ -30,8 +30,8 @@ class TestPlugin(unittest.TestCase):
 
                 black_plugin.format_black()
                 mock_showinfo.assert_called_with(
-                    title=plugin.NO_TEXT_TO_FORMAT[0],
-                    message=plugin.NO_TEXT_TO_FORMAT[1],
+                    title=plugin.NO_TEXT_TO_FORMAT.error_type,
+                    message=plugin.NO_TEXT_TO_FORMAT.description,
                 )
 
                 filename.side_effect = None
@@ -39,7 +39,8 @@ class TestPlugin(unittest.TestCase):
                 filename.return_value = "notcompatible"
                 black_plugin.format_black()
                 mock_showinfo.assert_called_with(
-                    title=plugin.NOT_COMPATIBLE[0], message=plugin.NOT_COMPATIBLE[1]
+                    title=plugin.NOT_COMPATIBLE.error_type,
+                    message=plugin.NOT_COMPATIBLE.description,
                 )
 
                 filename.return_value = str(Path(f"{tests_folder}/unchanged.py"))
@@ -67,8 +68,8 @@ class TestPlugin(unittest.TestCase):
                     mock_subprocess.sdterr = "No module named black"
                     black_plugin.format_black()
                     mock_showinfo.assert_called_with(
-                        title=plugin.PACKAGE_NOT_FOUND[0],
-                        message=plugin.PACKAGE_NOT_FOUND[1],
+                        title=plugin.PACKAGE_NOT_FOUND.error_type,
+                        message=plugin.PACKAGE_NOT_FOUND.description,
                     )
 
                 black_plugin.load_plugin()

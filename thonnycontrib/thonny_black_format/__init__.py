@@ -1,21 +1,24 @@
 import subprocess
 import sys
 import os
+from collections import namedtuple
 
 from tkinter.messagebox import showinfo
 from thonny import get_workbench
 
 name = "thonny-black-format"
 
+ErrorMessage = namedtuple("ErrorMessage", ["error_type", "description"])
+
 ERROR = "Error!"
 SUCCESS = "All done!"
 
-NO_TEXT_TO_FORMAT = (ERROR, "There is no text to format.")
-PACKAGE_NOT_FOUND = (
+NO_TEXT_TO_FORMAT = ErrorMessage(ERROR, "There is no text to format.")
+PACKAGE_NOT_FOUND = ErrorMessage(
     ERROR,
     "Could not find Black package. Is it installed and on your PATH?",
 )
-NOT_COMPATIBLE = (
+NOT_COMPATIBLE = ErrorMessage(
     "File not compatible!",
     "Looks like this is not a python file. Did you already save it?",
 )
@@ -60,8 +63,8 @@ class BlackFormat:
         try:
             self.filename = self.editor.get_filename()
         except AttributeError:
-            final_title = NO_TEXT_TO_FORMAT[0]
-            final_message = NO_TEXT_TO_FORMAT[1]
+            final_title = NO_TEXT_TO_FORMAT.error_type
+            final_message = NO_TEXT_TO_FORMAT.description
         else:
             if self.filename is not None and self.filename[-3:] == ".py":
                 self.editor.save_file()
@@ -73,8 +76,8 @@ class BlackFormat:
                 )
 
                 if format_code.stderr.find("No module named black") != -1:
-                    final_title = PACKAGE_NOT_FOUND[0]
-                    final_message = PACKAGE_NOT_FOUND[1]
+                    final_title = PACKAGE_NOT_FOUND.error_type
+                    final_message = PACKAGE_NOT_FOUND.description
                 else:
                     # Emojis are not supported in Tkinter.
                     message_without_emojis = format_code.stderr.encode(
@@ -115,8 +118,8 @@ class BlackFormat:
                         final_message = message_without_emojis.splitlines()[-1]
 
             else:
-                final_title = NOT_COMPATIBLE[0]
-                final_message = NOT_COMPATIBLE[1]
+                final_title = NOT_COMPATIBLE.error_type
+                final_message = NOT_COMPATIBLE.description
 
         showinfo(title=final_title, message=final_message)
 
