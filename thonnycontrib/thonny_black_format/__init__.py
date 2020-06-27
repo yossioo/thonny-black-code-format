@@ -10,12 +10,11 @@ name = "thonny-black-format"
 
 ErrorMessage = namedtuple("ErrorMessage", ["error_type", "description"])
 
-ERROR = "Error!"
 SUCCESS = "All done!"
 
-NO_TEXT_TO_FORMAT = ErrorMessage(ERROR, "There is no text to format.")
+NO_TEXT_TO_FORMAT = ErrorMessage("Nothing to do here", "There is no text to format.")
 PACKAGE_NOT_FOUND = ErrorMessage(
-    ERROR,
+    "Package not found",
     "Could not find Black package. Is it installed and on your PATH?",
 )
 NOT_COMPATIBLE = ErrorMessage(
