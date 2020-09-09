@@ -2,6 +2,7 @@ import subprocess
 import sys
 import os
 from collections import namedtuple
+from subprocess import PIPE
 
 from tkinter.messagebox import showinfo
 from thonny import get_workbench
@@ -68,11 +69,17 @@ class BlackFormat:
             if self.filename is not None and self.filename[-3:] == ".py":
                 self.editor.save_file()
 
-                format_code = subprocess.run(
-                    [get_interpreter_for_subprocess(), "-m", "black", self.filename,],
+                if version_info < (3,8):
+                    format_code = subprocess.run(
+                        [get_interpreter_for_subprocess(), "-m", "black", self.filename,], 
+                        stdout=PIPE, stderr=PIPE
+                    )
+                else:
+                    format_code = subprocess.run(
+                        [get_interpreter_for_subprocess(), "-m", "black", self.filename,],
                     capture_output=True,
                     text=True,
-                )
+                    )
 
                 if format_code.stderr.find("No module named black") != -1:
                     final_title = PACKAGE_NOT_FOUND.error_type
