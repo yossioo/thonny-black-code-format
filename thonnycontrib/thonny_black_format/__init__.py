@@ -69,16 +69,27 @@ class BlackFormat:
             if self.filename is not None and self.filename[-3:] == ".py":
                 self.editor.save_file()
 
-                if sys.version_info < (3,8):
+                if sys.version_info < (3, 8):
                     format_code = subprocess.run(
-                        [get_interpreter_for_subprocess(), "-m", "black", self.filename,], 
-                        stdout=PIPE, stderr=PIPE
+                        [
+                            get_interpreter_for_subprocess(),
+                            "-m",
+                            "black",
+                            self.filename,
+                        ],
+                        stdout=PIPE,
+                        stderr=PIPE,
                     )
                 else:
                     format_code = subprocess.run(
-                        [get_interpreter_for_subprocess(), "-m", "black", self.filename,],
-                    capture_output=True,
-                    text=True,
+                        [
+                            get_interpreter_for_subprocess(),
+                            "-m",
+                            "black",
+                            self.filename,
+                        ],
+                        capture_output=True,
+                        text=True,
                     )
 
                 if format_code.stderr.find("No module named black") != -1:
